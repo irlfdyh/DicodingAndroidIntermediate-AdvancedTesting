@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.dicoding.newsapp.data.NewsRepository
 import com.dicoding.newsapp.data.Result
 import com.dicoding.newsapp.data.local.entity.NewsEntity
+import com.dicoding.newsapp.getOrAwaitValue
 import com.dicoding.newsapp.util.DataDummy
 import org.junit.Assert
 import org.junit.Before
@@ -35,19 +36,17 @@ class NewsViewModelTest {
 
     @Test
     fun `when Get HeadlineNews Should Not Null and Return Success`() {
-        val observer = Observer<Result<List<NewsEntity>>> { }
-        try {
-            val expectedNews = MutableLiveData<Result<List<NewsEntity>>>()
-            expectedNews.value = Result.Success(dummyNews)
-            `when`(newsRepository.getHeadlineNews()).thenReturn(expectedNews)
+        val expectedNews = MutableLiveData<Result<List<NewsEntity>>>()
+        expectedNews.value = Result.Success(dummyNews)
 
-            val actualNews = newsViewModel.getHeadlineNews().observeForever(observer)
+        `when`(newsRepository.getHeadlineNews()).thenReturn(expectedNews)
 
-            Mockito.verify(newsRepository).getHeadlineNews()
-            Assert.assertNotNull(actualNews)
-        } finally {
-            newsViewModel.getHeadlineNews().removeObserver(observer)
-        }
+        val actualNews = newsViewModel.getHeadlineNews().getOrAwaitValue()
+
+        Mockito.verify(newsRepository).getHeadlineNews()
+        Assert.assertNotNull(actualNews)
+        Assert.assertTrue(actualNews is Result.Success)
+        Assert.assertEquals(dummyNews.size, (actualNews as Result.Success).data.size)
     }
 
 }
