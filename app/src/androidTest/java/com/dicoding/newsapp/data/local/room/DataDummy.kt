@@ -1,4 +1,4 @@
-package com.dicoding.newsapp.util
+package com.dicoding.newsapp.data.local.room
 
 import com.dicoding.newsapp.data.local.entity.NewsEntity
 import com.dicoding.newsapp.data.remote.response.ArticlesItem

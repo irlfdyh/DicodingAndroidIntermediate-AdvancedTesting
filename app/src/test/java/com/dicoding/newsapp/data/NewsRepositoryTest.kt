@@ -6,7 +6,7 @@ import com.dicoding.newsapp.data.local.room.NewsDao
 import com.dicoding.newsapp.data.remote.retrofit.ApiService
 import com.dicoding.newsapp.getOrAwaitValue
 import com.dicoding.newsapp.observeForTesting
-import com.dicoding.newsapp.util.DataDummy
+import com.dicoding.newsapp.DataDummy
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

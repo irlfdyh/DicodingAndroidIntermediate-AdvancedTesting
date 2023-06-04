@@ -5,15 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.dicoding.newsapp.MainDispatcherRule
 import com.dicoding.newsapp.data.NewsRepository
 import com.dicoding.newsapp.getOrAwaitValue
-import com.dicoding.newsapp.util.DataDummy
-import kotlinx.coroutines.Dispatchers
+import com.dicoding.newsapp.DataDummy
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
