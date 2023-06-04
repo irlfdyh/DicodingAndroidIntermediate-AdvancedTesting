@@ -71,6 +71,8 @@ dependencies {
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2' //RecyclerViewActions
 
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
+
     //TestCoroutineDispatcher
     debugImplementation "androidx.fragment:fragment-testing:1.4.1" //launchFragmentInContainer
 
