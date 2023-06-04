@@ -49,4 +49,46 @@ class NewsViewModelTest {
         Assert.assertEquals(dummyNews.size, (actualNews as Result.Success).data.size)
     }
 
+    @Test
+    fun `when Network Error Should Return Error`() {
+        val headlineNews = MutableLiveData<Result<List<NewsEntity>>>()
+        headlineNews.value = Result.Error("Error")
+
+        `when`(newsRepository.getHeadlineNews()).thenReturn(headlineNews)
+
+        val actualNews = newsViewModel.getHeadlineNews().getOrAwaitValue()
+
+        Mockito.verify(newsRepository).getHeadlineNews()
+        Assert.assertNotNull(actualNews)
+        Assert.assertNotNull(actualNews is Result.Error)
+    }
+
+    @Test
+    fun `when Get Bookmarks Should Not Null and Return Available Data`() {
+        val expectedData = MutableLiveData<List<NewsEntity>>()
+        expectedData.value = dummyNews
+
+        `when`(newsRepository.getBookmarkedNews()).thenReturn(expectedData)
+
+        val actualData = newsViewModel.getBookmarkedNews().getOrAwaitValue()
+
+        Mockito.verify(newsRepository).getBookmarkedNews()
+        Assert.assertNotNull(actualData)
+        Assert.assertEquals(dummyNews.size, actualData.size)
+    }
+
+    @Test
+    fun `when Get Bookmarks Should Not Null and Return Empty Data`() {
+        val expectedData = MutableLiveData<List<NewsEntity>>()
+        expectedData.value = emptyList()
+
+        `when`(newsRepository.getBookmarkedNews()).thenReturn(expectedData)
+
+        val actualData = newsViewModel.getBookmarkedNews().getOrAwaitValue()
+
+        Mockito.verify(newsRepository).getBookmarkedNews()
+        Assert.assertNotNull(actualData)
+        Assert.assertEquals(0, actualData.size)
+    }
+
 }
