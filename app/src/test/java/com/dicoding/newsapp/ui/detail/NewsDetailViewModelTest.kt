@@ -54,4 +54,16 @@ class NewsDetailViewModelTest {
         Mockito.verify(newsRepository).saveNews(dummyDetailNews)
     }
 
+    @Test
+    fun `when bookmarkStatus true Should call deleteNews`() = runTest {
+        val expectedBoolean = MutableLiveData<Boolean>()
+        expectedBoolean.value = true
+
+        `when`(newsRepository.isNewsBookmarked(dummyDetailNews.title)).thenReturn(expectedBoolean)
+
+        newsDetailViewModel.bookmarkStatus.getOrAwaitValue()
+        newsDetailViewModel.changeBookmark(dummyDetailNews)
+        Mockito.verify(newsRepository).deleteNews(dummyDetailNews.title)
+    }
+
 }
